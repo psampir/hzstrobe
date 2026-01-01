@@ -33,7 +33,7 @@ The application measures the delta between frame callbacks to calculate an insta
 ## Getting Started
 
 ### Prerequisites
-*   Node.js (v18 or higher)
+*   Node.js (v20.19.0 or higher)
 *   npm
 
 ### Installation
