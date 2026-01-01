@@ -2,7 +2,7 @@
 
 **HzStrobe** is a lightweight, high-performance web utility designed to detect your monitor's refresh rate and perform a high-frequency strobe test.
 
-[**🔴 Live Demo**](https://pawelsampir.github.io/hzstrobe/)
+[**🔴 Live Demo**](https://psampir.github.io/hzstrobe/)
 
 ---
 
@@ -40,7 +40,7 @@ The application measures the delta between frame callbacks to calculate an insta
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/pawelsampir/hzstrobe.git
+    git clone https://github.com/psampir/hzstrobe.git
     cd hzstrobe
     ```
 
