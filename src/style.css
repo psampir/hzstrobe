@@ -95,6 +95,33 @@ canvas {
   flex-direction: column;
   gap: 10px;
   text-align: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: top center;
+  width: 300px;
+}
+
+.controls-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100%);
+  pointer-events: none;
+}
+
+.ui-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ui-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .hidden {

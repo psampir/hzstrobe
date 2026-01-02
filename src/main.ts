@@ -13,6 +13,7 @@ const statusDisplay = document.getElementById('statusDisplay')!;
 const speedSlider = document.getElementById('speedSlider') as HTMLInputElement;
 const speedValue = document.getElementById('speedValue')!;
 const appVersion = document.getElementById('appVersion')!;
+const uiToggleBtn = document.getElementById('uiToggleBtn')!;
 
 // --- State ---
 let isRunning = false;
@@ -100,6 +101,7 @@ function stopStrobe() {
 acceptBtn.addEventListener('click', () => {
   warningModal.classList.add('hidden');
   controls.classList.remove('hidden');
+  uiToggleBtn.classList.remove('hidden');
   
   // Start the loop immediately to detect Hz, but don't strobe yet
   requestAnimationFrame(loop);
@@ -110,4 +112,10 @@ stopBtn.addEventListener('click', stopStrobe);
 
 speedSlider.addEventListener('input', () => {
   speedValue.textContent = speedSlider.value;
+});
+
+uiToggleBtn.addEventListener('click', () => {
+  controls.classList.toggle('controls-hidden');
+  const isHidden = controls.classList.contains('controls-hidden');
+  uiToggleBtn.textContent = isHidden ? 'Show UI' : 'Hide UI';
 });
