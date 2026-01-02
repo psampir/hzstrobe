@@ -12,6 +12,7 @@ const hzDisplay = document.getElementById('hzDisplay')!;
 const statusDisplay = document.getElementById('statusDisplay')!;
 const speedSlider = document.getElementById('speedSlider') as HTMLInputElement;
 const speedValue = document.getElementById('speedValue')!;
+const appVersion = document.getElementById('appVersion')!;
 
 // --- State ---
 let isRunning = false;
@@ -34,6 +35,9 @@ function resize() {
 }
 window.addEventListener('resize', resize);
 resize();
+
+// Set Version
+appVersion.textContent = `v${__APP_VERSION__}`;
 
 // --- Core Loop ---
 function loop(currentTime: number) {
