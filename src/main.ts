@@ -25,6 +25,12 @@ let lastFpsUpdate = performance.now();
 function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  
+  // Ensure background is correct after resize
+  if (!isRunning) {
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 }
 window.addEventListener('resize', resize);
 resize();
@@ -57,13 +63,6 @@ function loop(currentTime: number) {
       
       // Decrease accumulator, keeping the remainder for smooth timing
       strobeAccumulator -= 1;
-    }
-  } else {
-    // If not running, ensure screen is black
-    if (isWhite) {
-      ctx.fillStyle = '#000000';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      isWhite = false;
     }
   }
 
@@ -108,7 +107,3 @@ stopBtn.addEventListener('click', stopStrobe);
 speedSlider.addEventListener('input', () => {
   speedValue.textContent = speedSlider.value;
 });
-
-// Initial black screen
-ctx.fillStyle = '#000000';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
