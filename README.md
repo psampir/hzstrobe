@@ -1,6 +1,6 @@
-# [HzStrobe](https://github.com/psampir/hzstrobe)
+# [HzStrobe](https://psampir.github.io/hzstrobe/)
 
-**HzStrobe** is a lightweight, high-performance web utility designed to detect your monitor's refresh rate and perform a high-frequency strobe test.
+Lightweight, high-performance web utility designed to detect your monitor's refresh rate and perform a high-frequency strobe test.
 
 ---
 
