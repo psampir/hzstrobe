@@ -1,62 +1,39 @@
-# [HzStrobe](https://psampir.github.io/hzstrobe/)
+# HzStrobe
 
-Lightweight, high-performance web utility designed to detect your monitor's refresh rate and perform a high-frequency strobe test.
+Lightweight web utility that measures your monitor's refresh rate and runs a variable-frequency strobe test.
 
----
+Live app: [psampir.github.io/hzstrobe](https://psampir.github.io/hzstrobe/)
 
-## ⚠️ PHOTOSENSITIVE EPILEPSY WARNING
+> [!WARNING]
+> **Photosensitive epilepsy warning.** This application generates rapid flashing lights (strobe effects) that can trigger seizures in people with photosensitive epilepsy. Do not use it if you or anyone in your household has a history of epilepsy or seizures. Stop immediately if you experience dizziness, altered vision, eye or face twitching, disorientation, or loss of awareness.
 
-**READ BEFORE USING:** This application generates rapid flashing lights (strobe effects) which can trigger seizures in people with photosensitive epilepsy.
+## What it does
 
-*   **DO NOT USE** this tool if you or anyone in your household has a history of epilepsy or seizures.
-*   **IMMEDIATELY STOP** using the tool if you experience dizziness, altered vision, eye or face twitching, jerking or shaking of arms or legs, disorientation, confusion, or momentary loss of awareness.
+- Measures the display refresh rate in real time via `requestAnimationFrame` and shows the current Hz.
+- Adjustable strobe frequency, from 0% (static) to 100% (toggles on every frame).
+- Hideable UI toggle for unobstructed full-screen testing.
+- No runtime dependencies; vanilla TypeScript.
 
----
+## How it works
 
-## Features
+### Canvas 2D
 
-*   **Real-time Hz Detection**: Accurately measures monitor refresh rate using the browser's `requestAnimationFrame` loop.
-*   **Variable Strobe Speed**: Adjust the strobe frequency from 0% (static) to 100% (every frame) to test motion clarity and pixel response times.
-*   **High Performance**: Built with the HTML5 Canvas API (`alpha: false`) for maximum rendering efficiency and timing precision.
-*   **Zero Bloat**: Written in Vanilla TypeScript with no runtime framework dependencies.
+WebGL and WebGPU offer lower-level access, but the bottleneck for a screen strobe is the browser's compositor and VSync implementation, not the drawing API. Canvas 2D is fully hardware-accelerated in modern browsers and gives the most direct path to `requestAnimationFrame` without shader compilation or buffer management. The context is created with `alpha: false`, so the compositor skips per-frame alpha blending.
 
-## Technical Details
+### Timing logic
 
-### Why Canvas 2D?
-While WebGL or WebGPU offer lower-level access, the bottleneck for a screen strobe application is the browser's compositor and VSync implementation. The Canvas 2D API is fully hardware-accelerated in modern browsers and provides the most direct path to `requestAnimationFrame` without the overhead of shader compilation or buffer management.
+The frame loop counts callbacks and divides them by the elapsed time, updating the Hz readout every 500 ms. The strobe itself is driven by an accumulator: each frame adds the slider's frequency factor (0 to 1) to it, and whenever it reaches 1 the canvas toggles between black and white and the remainder is carried over. Toggle rate therefore scales smoothly with the slider regardless of the monitor's native refresh rate.
 
-### Timing Logic
-The application measures the delta between frame callbacks to calculate an instantaneous FPS. The strobe effect uses an accumulator-based system to ensure smooth frequency scaling regardless of the monitor's native refresh rate.
+## Development
 
-## Getting Started
+Requires Node.js 20.19+.
 
-### Prerequisites
-*   Node.js (v20.19.0 or higher)
-*   npm
-
-### Installation
-
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/psampir/hzstrobe.git
-    cd hzstrobe
-    ```
-
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
-
-3.  Start the development server:
-    ```bash
-    npm run dev
-    ```
-
-4.  Build for production:
-    ```bash
-    npm run build
-    ```
+```bash
+npm install
+npm run dev
+npm run build
+```
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT; see [LICENSE](LICENSE).
